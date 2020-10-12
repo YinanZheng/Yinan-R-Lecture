@@ -11,15 +11,16 @@
     "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "256,18",
-        "scrollLine": "247"
+        "cursorPosition": "330,0",
+        "scrollLine": "311",
+        "docOutlineVisible": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1602476332,
+    "lastKnownWriteTime": 1602478444,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1602476332300,
+    "last_content_update": 1602478444421,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -187,7 +187,7 @@ dim(longDf)
 nrow(longDf)
 ncol(longDf)
 
-# Subletting
+# Subsetting
 # subset using square brackets:
 mat[2, 2]
 mat[1:3, 1:2]
@@ -228,6 +228,8 @@ if(x > 0)
   print("x is not positive")
 }
 
+# else is optional
+
 # “for” loop ----
 # count even number in x:
 x <- c(2,5,3,9,15,8,11,6,24,68,44,25,36,57,24,47,14,13,2,6,3,9,14,27,44)
@@ -264,45 +266,71 @@ df
 
 # R demo analysis: The Effect of Vitamin C on Tooth Growth in Guinea Pigs ----
 
+# load data from web
 toothGrowth <- read.csv("https://raw.githubusercontent.com/YinanZheng/Yinan-R-Lecture/master/Data/ToothGrowth.csv")
+toothGrowth
+
+# load data from local
+toothGrowth <- read.csv("")
 toothGrowth
 
 # Inspect data
 head(toothGrowth)
 dim(toothGrowth)
 
+# Sample size in each supplement-dosage subgroups:
+table(toothGrowth$supp, toothGrowth$dose)
+
+# boxplot by supplement
+par(mfrow = c(1,2))
+with(subset(ToothGrowth, supp=="OJ"), 
+     boxplot(len ~ dose, main="Orange Juice", xlab="Dosage (mg/day)", ylab="Length"))
+with(subset(ToothGrowth, supp == "VC"), 
+     boxplot(len ~ dose, main="Ascorbic Acid", xlab="Dosage (mg/day)", ylab="Length"))
+
+# boxplot by dose
+par(mfrow = c(1,3))
+with(subset(ToothGrowth, dose=="0.5"),boxplot(len ~ supp, main="0.5 mg/day", ylab="Length"))
+with(subset(ToothGrowth, dose=="1"), boxplot(len ~ supp, main="1 mg/day", ylab="Length"))
+with(subset(ToothGrowth, dose=="2"), boxplot(len ~ supp, main="2 mg/day", ylab="Length"))
+
+# A better plot using package: ggplot2
+install.packages("ggplot2")
+
+library(ggplot2)
+qplot(supp,len,data=ToothGrowth, 
+      facets=~dose, 
+      main="Tooth growth of guinea pigs by supplement type and dosage (mg)",
+      xlab="Supplement type", 
+      ylab="Tooth length") + geom_boxplot(aes(fill = supp))
 
 
+# t-test between supplement in each dosage 
+ttestsByDose <- data.frame()
+for (d in c(0.5, 1, 2)) 
+{
+  datSub <- subset(ToothGrowth, dose == d)
+  
+  tTest <- t.test(len ~ supp, paired = FALSE, var.equal = FALSE, 
+                   data = datSub, alternative = "two.sided")
+  ttestsByDose <- rbind(ttestsByDose, data.frame(dose = d, 
+                                               mean_len_OJ = mean(datSub$len[datSub$supp == "OJ"]),
+                                               mean_len_VC = mean(datSub$len[datSub$supp == "VC"]),
+                                               t = tTest$statistic, 
+                                               std_err = tTest$stderr,
+                                               p_value = tTest$p.value))
+  if(tTest$p.value < 0.05)
+  {
+    message("Dosage = ", d, " mg/day: significant (p = ", tTest$p.value, ")")
+  } else {
+    message("Dosage = ", d, " mg/day: insignificant (p = ", tTest$p.value, ")")
+  }
+}
+
+ttestsByDose
+
+# save results into a csv file
+write.csv(ttestsByDose, "./Results/ToothGrowth_supplement_ttest_by_dose.csv", row.names = FALSE)
 
 
-
-# RStudio tips:
-
-
-# 2. Magic autocomplete (the "Tab" key, complete code, find variables, find files) 
-
-# Get function help and examples: ? or F1 
-
-
-
-# Section naming with ----
-#   Snippet (example: paste path, time stamp)
-# Rename in Scope (Ctrl + Alt + Shift + M)
-# Find and replace
-# Ctrl + left click: View data, view function source
-
-setwd("C:/Users/yzk256/Desktop/R Lecture")
-
-
-
-
-
-
-# R naming convention ----
-
-# 1. Strive for names that are concise and meaningful
-# 2. Recommended naming convention:
-# File names: underscore_separated, all lower case: e.g. Introduction_to_R.R
-# Functions: period.separated, all lower case: e.g. calculate.BMI
-# Variables: lowerCamelCase: e.g. addTaskCall
-# 2 - Files organisation
+## End
