@@ -54,7 +54,7 @@ c(TRUE, FALSE, FALSE)
 
 # Names must start with a letter or a dot
 # Names should contain only letters, numbers, underscore characters (_), and dots (.)
-# You can’t use the special keywords as names
+# You can use the special keywords as names
 
 # RStudio makes it easier: if the name is colored by white completely, 
 # then it is a legit object name!
@@ -194,7 +194,7 @@ class(df$Cancer)
 
 # Arithmetic operators
 # +   Addition
-# –   Subtraction
+# -   Subtraction
 # *   Multiplication
 # /   Division
 # ^   Exponent
@@ -268,7 +268,7 @@ df
 
 
 
-# “if” statement ----
+# if statement ----
 x <- 5
 x <- -2
 
@@ -284,7 +284,7 @@ if (x > 0)
 
 
 
-# “for” loop ----
+# for loop ----
 
 # count even number in x:
 x <- c(2,5,3,9,15,8,11,6,24,68,44,25,36,57,24,47,14,13,2,6,3,9,14,27,44)
