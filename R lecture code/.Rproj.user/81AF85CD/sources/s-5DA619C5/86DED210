@@ -1,26 +1,26 @@
 {
-    "id": "6B11DB48",
+    "id": "86DED210",
     "path": "D:/Dropbox/Yinan R Lecture/R lecture code/1_R_Introduction.R",
     "project_path": "1_R_Introduction.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1602464486727.0,
+    "created": 1602564776786.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "330,0",
-        "scrollLine": "311",
+        "cursorPosition": "22,0",
+        "scrollLine": "10",
         "docOutlineVisible": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1602478444,
+    "lastKnownWriteTime": 1602566491,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1602478444421,
+    "last_content_update": 1602566491946,
     "read_only": false,
     "read_only_alternatives": []
 }
